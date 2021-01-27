@@ -74,7 +74,7 @@ if ~isempty(searchid)
 end
 searchid1=allchildren(searchlist,searchid);
 %% visualize in 3D
-regioncolors=prism;
+regioncolors=lines;
 f1=figure;
 primaryidV=ismember(primaryannoatlas,region);
 ifanno1=sum(sum(sum(primaryidV)));
@@ -88,8 +88,10 @@ subplot(1,2,1); h1=gca;
 ifanno1=sum(sum(sum(primaryidV)));
 h1=brainvis3d(primaryannoatlas,h1,[],primaryres);
 if ifanno1>0
+    n=0;
     for i=1:length(primaryid1)
-        brainvis3d(primaryidV==i,h1,regioncolors(i,:),primaryres);
+        n=n+1;
+        brainvis3d(primaryidV==i,h1,regioncolors(n,:),primaryres);
     end
     camlight
     lighting gouraud
@@ -107,8 +109,10 @@ ifanno2=sum(sum(sum(searchidV)));
 subplot(1,2,2); h2=gca;
 h2=brainvis3d(searchannoatlas,h2,[],searchres);
 if ifanno2>0
+    n=0;
     for i=1:length(searchid1)
-        brainvis3d(searchidV==i,h2,regioncolors(i,:),searchres);
+        n=n+1;
+        brainvis3d(searchidV==i,h2,regioncolors(n,:),searchres);
     end
     camlight
     lighting gouraud
@@ -130,8 +134,10 @@ if ifanno1>0
         imagesc(primaryrefatlas(:,:,K1i)')
         colormap gray
         primaryidmask=primaryidV(:,:,K1i)';
+        n=0;
         for i=1:length(primaryid1)
-            transparent_overlay(gca,primaryidmask==i,regioncolors(i,:));
+            n=n+1;
+            transparent_overlay(gca,primaryidmask==i,regioncolors(n,:));
         end
         axis image; axis off
         hold on, line([10,10+5/primaryres(1)],[10 10],'linewidth',2,'color','w')
@@ -168,8 +174,10 @@ if ifanno2>0
         imagesc(searchrefatlas(:,:,K1i)')
         colormap gray
         searchidmask=searchidV(:,:,K1i)';
+        n=0;
         for i=1:length(searchid1)
-            transparent_overlay(gca,searchidmask==i,regioncolors(i,:));
+            n=n+1;
+            transparent_overlay(gca,searchidmask==i,regioncolors(n,:));
         end
         axis image; axis off
         hold on, line([10,10+5/searchres(1)],[10 10],'linewidth',2,'color','w')
