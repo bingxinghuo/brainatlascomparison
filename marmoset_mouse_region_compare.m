@@ -19,6 +19,9 @@ if ~isempty(region1)
     region=region1;
 end
 [L,region]=search_in_LUT(species,region); % convert region and find in LUT
+if isempty(L)
+    return
+end
 % view brain regions in 3D
 match_brain_view(species,L);
 % view brain regions in the hierarchy

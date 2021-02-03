@@ -76,13 +76,14 @@ searchid1=allchildren(searchlist,searchid);
 %% visualize in 3D
 regioncolors=lines;
 f1=figure;
-primaryidV=ismember(primaryannoatlas,region);
+% primaryidV=ismember(primaryannoatlas,region);
+primaryidV=zeros(size(primaryannoatlas));
 ifanno1=sum(sum(sum(primaryidV)));
 if ifanno1>0 % add in the parent region name
     primaryregioninfo=[childreninfo(primarylist,region,0,0);primaryregioninfo];
 end
 for i=1:length(primaryid1)
-    primaryidV=primaryidV+ismember(primaryannoatlas,primaryid1(i))*(i+1);
+    primaryidV=primaryidV+ismember(primaryannoatlas,primaryid1(i))*i;
 end
 subplot(1,2,1); h1=gca;
 ifanno1=sum(sum(sum(primaryidV)));

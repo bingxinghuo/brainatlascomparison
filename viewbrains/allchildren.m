@@ -1,4 +1,4 @@
-%% extract all subregion IDs from the hierarchy
+%% extract all subregion IDs, including itself, from the hierarchy
 function CC=allchildren(animalist,regionid)
 CC=[];
 for i=1:length(regionid)
