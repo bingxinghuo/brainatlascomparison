@@ -10,7 +10,7 @@ else
     ind=find(contains(namelist,acronym,'IgnoreCase',true));
 end
 if isempty(ind)
-    regionid=0;
+    regionid=[];
     disp('No matching name!')
 elseif length(ind)==1
     regionid=animallist{ind,4};
@@ -20,5 +20,9 @@ else
     disp(['Target region: ',acronym])
     disp(region_candidates_table)
     indi=input('Please select the desired region number: ');
-    regionid=animallist{ind(indi),4};
+    if ~isempty(indi)
+        regionid=animallist{ind(indi),4};
+    else
+        regionid=[];
+    end
 end

@@ -26,7 +26,7 @@ end
 % region=84;
 if ~isa(region,'numeric')
     region1=findregionid(primarylist,region);
-    if region1==0
+    if isempty(region1)
         region1=findregionid(primarylist,region,1);
     end
     region=region1;
