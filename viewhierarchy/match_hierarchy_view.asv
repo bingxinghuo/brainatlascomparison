@@ -6,7 +6,7 @@
 %   - species: either "mouse" or "marmoset"
 %   - L: location of the matched regions in LUT
 % output:
-%   Two windows should show up, one of hierarchical view of the primary brain region, and a second one for the corresponding region, if available.
+%   Two windows should show up, one of 3D visualization of the brains, another of coronal sections, both with the region highlighted.
 % global variables:
 %   - LUT: structure of lookup table across mouse and marmoset. Output from
 %   LUTassemble.m
@@ -26,23 +26,18 @@ elseif strcmpi(species,'marmoset')
     searchlist=mouselist;
     searchLUT=LUT.mouse;
 end
-%% 2. primary tree
+%% 
 primaryid=cell2mat(primaryLUT(L,1)');
-BGplottree(primarylist,primaryid); % display the hierarchical tree
+BGplottree(primarylist,primaryid);
 title(species)
 f1=gcf;
 set(f1,'Name',[species,' hierarchy'])
-%% 3. corresponding tree
 searchid=cell2mat(searchLUT(L,1)');
-if ~isempty(searchid)
-    BGplottree(searchlist,searchid);  % display the hierarchical tree
-    title(species1)
-    f2=gcf;
-    set(f2,'Name',[species1,' hierarchy'])
-else
-    disp(['No homologous region in ',species1,'. Skip hierarchy plot.'])
-end
-%% close biograph viewers
+BGplottree(searchlist,searchid);
+title(species1)
+f2=gcf;
+set(f2,'Name',[species1,' hierarchy'])
+% close biograph viewers
 child_handles = allchild(0);
 names = get(child_handles,'Name');
 k = find(strncmp('Biograph Viewer', names, 15));
