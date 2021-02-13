@@ -2,14 +2,15 @@
 % Bingxing Huo, Jan 2021
 % This script displays the region of interest in mouse and marmoset
 % input:
-%   - LUT: structure of lookup table across mouse and marmoset. Output from
-%   LUTassemble.m
 %   - species: either "mouse" or "marmoset"
 %   - L: location of the matched regions in LUT
 % output:
 %   Two windows should show up, one of 3D visualization of the brains, another of coronal sections, both with the region highlighted.
+% global variables:
+%   - LUT: structure of lookup table across mouse and marmoset. Output from
+%   LUTassemble.m
 function match_brain_view(species,L)
-global LUT region mouselist marmosetlist specieslist
+global LUT mouselist marmosetlist specieslist
 %% load atlases, both reference and annotation, and resolution for both species
 load('atlas_for_vis');
 %% 1. identify species-specific data
@@ -82,10 +83,9 @@ end
 subplot(1,2,2); h2=gca; % Panel 2
 h2=brainvis3d(searchannoatlas,h2,[],searchres); % show the corresponding brain
 if ~isempty(searchid) % there is corresponding region in LUT
-    ifanno2=region3doverlay(h2,searchannoatlas,searchid1,searchres);
-    camlight
-    lighting gouraud
-    if sum(annoflag)>0
+    searchidV=region3doverlay(h2,searchannoatlas,searchid1,searchres);
+    ifanno2=sum(sum(sum(searchidV)));
+    if ifanno2>0
         title([{species1};join(searchregioninfo(:,3),',',2)])
     else
         title([{species1};join(searchregioninfo(1,3),',',2);{'region(s) not annotated'}])
@@ -94,15 +94,20 @@ else
     title([{species1};'no homologous region'])
     ifanno2=[];
 end
+    camlight
+    lighting gouraud
 % 3.1.3 link the two panels
 Link = linkprop([h1, h2],{'CameraUpVector', 'CameraPosition', 'CameraTarget'});
 setappdata(gcf, 'StoreTheLink', Link);
 %% 3.2 visualize in coronal section
 f2=figure;
-% primary
+% 3.2.1 primary
 h3=subplot(1,2,1);
 if ifanno1>0
     regioncoronaloverlay(h3,primaryrefatlas,primaryidV,primaryid1);        % display the coronal section with individual regions overlaid
+    hold(h3,'on')
+    line([10,10+5/primaryres(1)],[10 10],'linewidth',2,'color','w') % scale bar of 5mm
+    text(10,5,'5mm','color','w')
     title([species;join(primaryregioninfo(:,3),',',2)])
 else % no annotation available
     imagesc(zeros(size(primaryrefatlas(:,:,1)))) % show black section
@@ -113,9 +118,7 @@ else % no annotation available
     % suggestion:
     if ~isempty(primaryid1) % region not found in LUT
         disp('Please consider select following parent regions: ')
-        PP=[];
-        for p=1:length(primaryid1)
-            PP=[PP;lineageinfo(primarylist,primaryid1(p),0)];
+        PP=lineageinfo(primarylist,primaryid,0)];
         end
         PPid=cell2mat(PP(:,4));
         [~,PPidui]=unique(PPid);
@@ -123,18 +126,23 @@ else % no annotation available
         disp(cell2table(PP1,'VariableNames',{'regionID','acronym','regionname'}))
     end
 end
-% corresponding
+% 3.2.2 corresponding
 h4=subplot(1,2,2);
 if ifanno2>0
     regioncoronaloverlay(h4,searchrefatlas,searchidV,searchid1);        % display the coronal section with individual regions overlaid
     title([species1;join(searchregioninfo(:,3),',',2)])
-elseif isempty(ifanno2) % empty means not found
-    title(['No matched region in ',species1])
+    hold(h4,'on')
+    line([10,10+5/searchres(1)],[10 10],'linewidth',2,'color','w')  % scale bar of 5mm
+    text(10,5,'5mm','color','w')
 else % 0 means no annotation
-    imagesc(zeros(size(searchrefatlas(:,:,1)))) % show black image
+    imagesc(zeros(size(searchrefatlas(:,:,1)'))) % show black image
     colormap gray
     axis image; axis off
-    title([{species1};join(searchregioninfo(1,3),',',2);{'region(s) not annotated'}])
+    if isempty(ifanno2) % empty means not found
+        title(['No homologous region in ',species1])
+    else
+        title([{species1};join(searchregioninfo(1,3),',',2);{'region(s) not annotated'}])
+    end
 end
 iptwindowalign(f1,'right',f2,'left')
 iptwindowalign(f1,'bottom',f2,'bottom')
@@ -174,7 +182,5 @@ if sum(sum(sum(idV)))>0
         transparent_overlay(gca,idmask==i,regioncolors(n,:));
     end
     axis image; axis off
-    hold on, line([10,10+5/primaryres(1)],[10 10],'linewidth',2,'color','w')
-    text(10,5,'5mm','color','w')
 end
 end

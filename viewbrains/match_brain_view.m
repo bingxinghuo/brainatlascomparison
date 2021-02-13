@@ -125,7 +125,8 @@ else % no annotation available
         PPid=cell2mat(PP(:,4));
         [~,PPidui]=unique(PPid);
         PP1=PP(PPidui,[4,2,3]);
-        disp(cell2table(PP1,'VariableNames',{'regionID','acronym','regionname'}))
+        [~,sorti]=sort(cell2mat(PP(PPidui,1)));
+        disp(cell2table(PP1(sorti,:),'VariableNames',{'regionID','acronym','regionname'}))
     end
 end
 % 3.2.2 corresponding
