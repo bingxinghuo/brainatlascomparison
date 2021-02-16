@@ -1,3 +1,4 @@
+%% findregionid
 function region1=findregionid(animallist,region,isfull)
 % identify if the region is ID or name
 if isnumeric(region)
@@ -5,14 +6,18 @@ if isnumeric(region)
 else
     region1=str2num(region);
 end
-if isempty(region1) % name
-    if nargin<3
-        region1=findregionid_byname(animallist,region); % check for acronym
-        if region1==0
-            region1=findregionid_byname(animallist,region,1);   % check for full name
+if isempty(region1)
+    if ~isempty(region) % name
+        if nargin<3
+            region1=findregionid_byname(animallist,region); % check for acronym
+            if region1==0
+                region1=findregionid_byname(animallist,region,1);   % check for full name
+            end
+        else
+            region1=findregionid_byname(animallist,region,isfull);
         end
     else
-        region1=findregionid_byname(animallist,region,isfull);
+        region1=0;
     end
 end
 end
@@ -29,12 +34,16 @@ else
     fullnamelist=animallist(:,3); % full name
     ind=[ind;find(contains(fullnamelist,acronym,'IgnoreCase',true))];
 end
-regionid=[];
 if isempty(ind)
     regionid=0;
-    disp('No matching name!')
+    if isfull==0
+    disp('No matching acronym!')
+    else
+        disp('No matching name!')
+    end
 elseif length(ind)==1
-%     regioncheck=input(['Accept the exact match of ',animallist{ind,2},' for "',acronym,'"?(y/n): '],'s');
+    %     regioncheck=input(['Accept the exact match of ',animallist{ind,2},' for "',acronym,'"?(y/n): '],'s');
+    disp(['Found exact match of ',strjoin(animallist(ind,2:3),', '),' for "',acronym,'".']);
     regioncheck='y';
     if strcmpi(regioncheck,'y')
         regionid=animallist{ind,4};
@@ -45,8 +54,10 @@ else
     disp(['Target region: ',acronym])
     disp(region_candidates_table)
     indi=input('Please select the desired region number: ');
-    if ~isempty(indi)
+    if ~isempty(indi) && indi>0
         regionid=animallist{ind(indi),4};
+    else
+        regionid=0;
     end
 end
 end
