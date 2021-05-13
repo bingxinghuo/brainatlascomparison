@@ -1,6 +1,7 @@
 %% visualize regions in mouse and marmoset
 % run this script to trigger finding corresponding regions in mouse and
 % marmoset with visualization
+function marmoset_mouse_region_compare()
 addpath(genpath('./'))
 warning off
 %% 1. load necessary data 

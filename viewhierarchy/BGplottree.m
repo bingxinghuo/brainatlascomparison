@@ -16,9 +16,12 @@ for i=1:length(regionids)
 end
 [BGdata,regionlist]=connmatgen(treenodes,regionlist);
 BGobj=biograph(BGdata,regionlist(:,2));
+g0=getnodesbyid(BGobj);
+set(g0,'FontSize',14);
 for i=1:length(regionid)
     g=getnodesbyid(BGobj,regioninfo{i,2});
     set(g,'Color',[1 .7 .7]);
+    set(g,'FontSize',18);
 end
 set(BGobj,'ShowArrows','off')
 if nargin<3
