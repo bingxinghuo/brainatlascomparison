@@ -37,7 +37,7 @@ for li=1:length(L)
         primaryid1=[primaryid1;primaryid1l];
     end
 end
-BGplottree(primarylist,primaryid1(:,1),'',primaryid1(:,2)); % display the hierarchical tree
+BGplottree(primarylist,primaryid1); % display the hierarchical tree
 title(species)
 f1=gcf;
 set(f1,'Name',[species,' hierarchy'])

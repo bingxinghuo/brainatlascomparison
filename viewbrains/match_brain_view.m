@@ -58,8 +58,8 @@ for li=1:length(L)
     primaryid1l=allchildren(primarylist,primaryLUT{L(li),1});
     primaryid1l=nonzeros(primaryid1l);
     if ~isempty(primaryid1l)
-    primaryid1l(:,2)=li;
-    primaryid1=[primaryid1;primaryid1l];
+        primaryid1l(:,2)=li;
+        primaryid1=[primaryid1;primaryid1l];
     end
 end
 % 2.2 get all information of the corresponding regions read from LUT
@@ -70,16 +70,16 @@ if ~isempty(searchid)
         disp(['Note: showing only 3 of ',num2str(size(searchregioninfo,1)),' names.'])
         searchregioninfo=searchregioninfo(1:3,:);
     end
-%     searchid1=allchildren(searchlist,searchid);
-searchid1=[];
-for li=1:length(L)
-    searchid1l=allchildren(searchlist,searchLUT{L(li),1});
-    searchid1l=nonzeros(searchid1l);
-    if ~isempty(searchid1l)
-    searchid1l(:,2)=li;
-    searchid1=[searchid1;searchid1l];
+    %     searchid1=allchildren(searchlist,searchid);
+    searchid1=[];
+    for li=1:length(L)
+        searchid1l=allchildren(searchlist,searchLUT{L(li),1});
+        searchid1l=nonzeros(searchid1l);
+        if ~isempty(searchid1l)
+            searchid1l(:,2)=li;
+            searchid1=[searchid1;searchid1l];
+        end
     end
-end
 else
     disp('No homology found.')
 end
@@ -113,8 +113,8 @@ else
     title([{species1};'no homologous region'])
     ifanno2=[];
 end
-    camlight
-    lighting gouraud
+camlight
+lighting gouraud
 % 3.1.3 link the two panels
 Link = linkprop([h1, h2],{'CameraUpVector', 'CameraPosition', 'CameraTarget'});
 setappdata(gcf, 'StoreTheLink', Link);
