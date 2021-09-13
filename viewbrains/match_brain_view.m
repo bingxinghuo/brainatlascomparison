@@ -152,7 +152,7 @@ iptwindowalign(f1,'bottom',f2,'bottom')
 end
 
 function idV=region3doverlay(h,annoatlas,idlist,atlasres)
-regioncolors=lines; % set up colors for different regions
+regioncolors=prism; % set up colors for different regions
 % show individual brain regions and assign colors on top of the 3D brain
 idV=zeros(size(annoatlas));
 for i=1:length(idlist)
@@ -170,7 +170,7 @@ end
 end
 
 function regioncoronaloverlay(h,refatlas,idV,idlist)
-regioncolors=lines; % set up colors for different regions
+regioncolors=prism; % set up colors for different regions
 if sum(sum(sum(idV)))>0
     K1=squeeze(sum(sum(idV,1),2)); % get total voxels for all Z
     [~,K1i]=max(K1); % find the section with largest area annotated
