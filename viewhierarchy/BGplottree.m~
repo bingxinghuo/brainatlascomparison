@@ -1,4 +1,4 @@
-function BGplottree(animallist,regionid,f,colorlist)
+function BGplottree(animallist,regionid,f)
 % load('mouseregionlist')
 % regionid=549;
 CC=[];
@@ -19,16 +19,13 @@ BGobj=biograph(BGdata,regionlist(:,2));
 g0=getnodesbyid(BGobj);
 set(g0,'FontSize',14);
 regioncolors=lines;
-if nargin>3
-    regioncolors=regioncolors(colorlist,:); % set up colors for different regions
-end
 for i=1:length(regionid)
     g=getnodesbyid(BGobj,regioninfo{i,2});
-    set(g,'Color',regioncolors(i,:));
+    set(g,'Color',regioncolors(i,);
     set(g,'FontSize',18);
 end
 set(BGobj,'ShowArrows','off')
-if nargin<3 || isempty(f)
+if nargin<3
     f=figure;
 end
 g=biograph.bggui(BGobj);

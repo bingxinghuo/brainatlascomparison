@@ -51,7 +51,17 @@ if size(primaryregioninfo,1)>3
     disp(['Note: showing only 3 of ',num2str(size(primaryregioninfo,1)),' names.'])
     primaryregioninfo=primaryregioninfo(1:3,:);
 end
-primaryid1=allchildren(primarylist,primaryid);
+% primaryid1l=allchildren(primarylist,primaryid);
+% to control colors, go through each row in LUT
+primaryid1=[];
+for li=1:length(L)
+    primaryid1l=allchildren(primarylist,primaryLUT{L(li),1});
+    primaryid1l=nonzeros(primaryid1l);
+    if ~isempty(primaryid1l)
+        primaryid1l(:,2)=li;
+        primaryid1=[primaryid1;primaryid1l];
+    end
+end
 % 2.2 get all information of the corresponding regions read from LUT
 searchid=cell2mat(searchLUT(L,1)');
 if ~isempty(searchid)
@@ -60,7 +70,16 @@ if ~isempty(searchid)
         disp(['Note: showing only 3 of ',num2str(size(searchregioninfo,1)),' names.'])
         searchregioninfo=searchregioninfo(1:3,:);
     end
-    searchid1=allchildren(searchlist,searchid);
+    %     searchid1=allchildren(searchlist,searchid);
+    searchid1=[];
+    for li=1:length(L)
+        searchid1l=allchildren(searchlist,searchLUT{L(li),1});
+        searchid1l=nonzeros(searchid1l);
+        if ~isempty(searchid1l)
+            searchid1l(:,2)=li;
+            searchid1=[searchid1;searchid1l];
+        end
+    end
 else
     disp('No homology found.')
 end
@@ -70,7 +89,7 @@ f1=figure;
 % 3.1.1 primary brain
 subplot(1,2,1); h1=gca; % Panel 1
 h1=brainvis3d(primaryannoatlas,h1,[],primaryres); % brain in 3D
-primaryidV=region3doverlay(h1,primaryannoatlas,primaryid1,primaryres);
+primaryidV=region3doverlay(h1,primaryannoatlas,primaryid1(:,1),primaryres,primaryid1(:,2));
 camlight
 lighting gouraud
 ifanno1=sum(sum(sum(primaryidV)));
@@ -83,7 +102,7 @@ end
 subplot(1,2,2); h2=gca; % Panel 2
 h2=brainvis3d(searchannoatlas,h2,[],searchres); % show the corresponding brain
 if ~isempty(searchid) % there is corresponding region in LUT
-    searchidV=region3doverlay(h2,searchannoatlas,searchid1,searchres);
+    searchidV=region3doverlay(h2,searchannoatlas,searchid1(:,1),searchres,searchid1(:,2));
     ifanno2=sum(sum(sum(searchidV)));
     if ifanno2>0
         title([{species1};join(searchregioninfo(:,3),',',2)])
@@ -94,8 +113,8 @@ else
     title([{species1};'no homologous region'])
     ifanno2=[];
 end
-    camlight
-    lighting gouraud
+camlight
+lighting gouraud
 % 3.1.3 link the two panels
 Link = linkprop([h1, h2],{'CameraUpVector', 'CameraPosition', 'CameraTarget'});
 setappdata(gcf, 'StoreTheLink', Link);
@@ -104,7 +123,7 @@ f2=figure;
 % 3.2.1 primary
 h3=subplot(1,2,1);
 if ifanno1>0
-    regioncoronaloverlay(h3,primaryrefatlas,primaryidV,primaryid1);        % display the coronal section with individual regions overlaid
+    regioncoronaloverlay(h3,primaryrefatlas,primaryidV,primaryid1(:,1),primaryid1(:,2));        % display the coronal section with individual regions overlaid
     hold(h3,'on')
     line([10,10+5/primaryres(1)],[10 10],'linewidth',2,'color','w') % scale bar of 5mm
     text(10,5,'5mm','color','w')
@@ -132,7 +151,7 @@ end
 % 3.2.2 corresponding
 h4=subplot(1,2,2);
 if ifanno2>0
-    regioncoronaloverlay(h4,searchrefatlas,searchidV,searchid1);        % display the coronal section with individual regions overlaid
+    regioncoronaloverlay(h4,searchrefatlas,searchidV,searchid1(:,1),searchid1(:,2));        % display the coronal section with individual regions overlaid
     title([species1;join(searchregioninfo(:,3),',',2)])
     hold(h4,'on')
     line([10,10+5/searchres(1)],[10 10],'linewidth',2,'color','w')  % scale bar of 5mm
@@ -151,8 +170,11 @@ iptwindowalign(f1,'right',f2,'left')
 iptwindowalign(f1,'bottom',f2,'bottom')
 end
 
-function idV=region3doverlay(h,annoatlas,idlist,atlasres)
-regioncolors=prism; % set up colors for different regions
+function idV=region3doverlay(h,annoatlas,idlist,atlasres,colorlist)
+regioncolors=lines; % set up colors for different regions
+if nargin>4
+    regioncolors=regioncolors(colorlist,:); % set up colors for different regions
+end
 % show individual brain regions and assign colors on top of the 3D brain
 idV=zeros(size(annoatlas));
 for i=1:length(idlist)
@@ -169,8 +191,11 @@ if ifanno>0
 end
 end
 
-function regioncoronaloverlay(h,refatlas,idV,idlist)
-regioncolors=prism; % set up colors for different regions
+function regioncoronaloverlay(h,refatlas,idV,idlist,colorlist)
+regioncolors=lines; % set up colors for different regions
+if nargin>4
+    regioncolors=regioncolors(colorlist,:); % set up colors for different regions
+end
 if sum(sum(sum(idV)))>0
     K1=squeeze(sum(sum(idV,1),2)); % get total voxels for all Z
     [~,K1i]=max(K1); % find the section with largest area annotated
