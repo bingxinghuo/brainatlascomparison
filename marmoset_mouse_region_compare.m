@@ -28,4 +28,6 @@ end
 %% 4. view brain regions in 3D
 match_brain_view(species,L);
 %% 5. view brain regions in the hierarchy
+load('mouseregionlist','mouselist1'); % mouselist
+mouselist=mouselist1;
 match_hierarchy_view(species,L);
