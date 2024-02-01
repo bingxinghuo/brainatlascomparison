@@ -20,10 +20,9 @@ elseif speciesi==2
 end
 disp(['Please enter a region in ',species,' (ID, acronym, or partial name)'])
 regions=input('if multiple regions, use , to separate: ','s');
-regions= regions(~isspace(regions));
 regions=split(regions,',');
 %% 3. find the region in LUT 
-[L,region]=search_in_LUT(species,regions,1); % convert region and find in LUT
+[L,region]=search_in_LUT(species,regions); % convert region and find in LUT
 if isempty(L)
     disp('Region and subregions do not exist in the lookup table! Abort.')
     return
@@ -37,4 +36,6 @@ end
 %% 5. view brain regions in the hierarchy
 load('mouseregionlist','mouselist1'); % mouselist
 mouselist=mouselist1;
+if length(L)==1
 match_hierarchy_view(species,L);
+end
