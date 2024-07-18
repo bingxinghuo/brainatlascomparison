@@ -1,5 +1,5 @@
 # brainatlascomparison
-This repository contains the Matlab tool for the paper <a href="https://doi.org/10.1101/2024.05.06.592808">"Establishing neuroanatomical correspondences across mouse and marmoset brain structures."</a> (Mezias *et al*. bioRxiv)
+This repository (https://github.com/bingxinghuo/brainatlascomparison/) contains the Matlab tool for the paper <a href="https://doi.org/10.1101/2024.05.06.592808">"Establishing neuroanatomical correspondences across mouse and marmoset brain structures."</a> (Mezias *et al*. bioRxiv)
 There are two versions of the tool:
 1. A standalone Matlab App for users without Matlab license. (*Installing Matlab Runtime is necessary, though.*)
 2. A command line tool within the Matlab interface for Matlab users to maximize accessibility of the code.
@@ -22,7 +22,7 @@ This tool works in the Matlab environment which requires you to have an active M
 1) Pull this repository to your local Matlab path. <b>Necessary folders:</b>"data", "viewbrains", "viewhierarchy", "utilities", and "marmoset_mouse_region_compare.m"
 2) In the local directory, run "marmoset_mouse_region_compare.m" in the Matlab command interface.
 ## Use the tool step by step
-The user will be asked to specify a species (i.e. mouse or marmoset) and a brain region (ID, acronym, or partial region name). The tool will provide
+The user will be asked to specify a species (i.e. mouse or marmoset) and a brain region (ID, acronym, or partial region name) according to the nomenclature in respective atlases (Allen Mouse Brain Atlas and Paxinos Marmoset Brain Atlas). The tool will provide, in pop-up windows,
 1) 3D view comparisons of the brain region and subregions in the two reference atlases
 2) Coronal view comparisons of the brain region and subregions
 3) Hierarchical structures of the region's parent regions and all children branches. 
