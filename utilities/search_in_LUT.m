@@ -13,7 +13,7 @@
 function [Ls,regions]=search_in_LUT(speciesinfo,regions,ifdescend)
 global LUT
 if isempty(LUT)
-    load('brainmatch.mat','LUT')
+    load('brainmatchatlas.mat','LUT')
 end
 %% identify LUT
 % species='mouse';
