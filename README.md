@@ -8,7 +8,12 @@ There are two versions of the tool:
 The tool provides a graphical interface to visualize the corresponding brain regions in mouse and marmoset, and their respective positions in the atlas hierarchy. 
 ## Set up step by step
 1) Download the folder of marmoset_mouse_region_compare_app_v2024 (also contained in the zip file)
-2) Follow instructions in the <b>readme.txt</b> to install Matlab Runtime, which does not require a Matlab license. It also contains instruction for alternative approaches when Matlab Runtime installation fails. 
+2) Follow instructions in the <b>readme.txt</b> to install Matlab Runtime, which does not require a Matlab license. It also contains instruction for alternative approaches when Matlab Runtime installation fails. <br>
+<b>The App was developed in Matlab_R2022a, so please install the same Matlab Runtime version: </b><br>
+<a href="https://ssd.mathworks.com/supportfiles/downloads/R2022a/Release/8/deployment_files/installer/complete/maci64/MATLAB_Runtime_R2022a_Update_8_maci64.dmg.zip">MATLAB Runtime R2022a (9.12) for Mac </a><br>
+<a href="https://ssd.mathworks.com/supportfiles/downloads/R2022a/Release/8/deployment_files/installer/complete/win64/MATLAB_Runtime_R2022a_Update_8_win64.zip">MATLAB Runtime R2022a (9.12) for Windows </a><br>
+<a href="https://ssd.mathworks.com/supportfiles/downloads/R2022a/Release/8/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2022a_Update_8_glnxa64.zip">MATLAB Runtime R2022a (9.12) for Linux </a><br>
+
 3) Launch the App by running marmoset_mouse_region_compare_app.sh <br>
    <b>or</b><br>
    Launch the App by running marmoset_mouse_region_compare_app.app (in Mac or Linux)
