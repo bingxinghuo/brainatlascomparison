@@ -1,4 +1,6 @@
 # brainatlascomparison
+*For any questions, or if you encounter problems configuring the environment to run the app/tool, please feel free to email me: bingxing.huo@gmail.com. I'm always happy to discuss!* <br>
+
 This repository (https://github.com/bingxinghuo/brainatlascomparison/) contains the Matlab tool for the paper <a href="https://doi.org/10.1101/2024.05.06.592808">"Establishing neuroanatomical correspondences across mouse and marmoset brain structures."</a> (Mezias *et al*. bioRxiv)
 There are two versions of the tool:
 1. A standalone Matlab App for users without Matlab license. (*Installing Matlab Runtime is necessary, though.*)
