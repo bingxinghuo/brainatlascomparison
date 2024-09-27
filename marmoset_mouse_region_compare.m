@@ -14,9 +14,9 @@ specieslist={'mouse';'marmoset'};
 speciesi=input('Please select a species: mouse (1) or marmoset (2)? ');
 species=specieslist{speciesi};
 if speciesi==1
-    disp('Please refer to <a href = "http://brainarchitecture.org/mouse-connectivity-home#tab-id-2">mouse brain hierarchy</a> to find leaf-level region names.')
+    disp('All mouse brain regions names are available at <a href = "http://brainarchitecture.org/mouse-connectivity-home#tab-id-2">http://brainarchitecture.org/mouse-connectivity-home#tab-id-2</a>. (Please copy and paste to view.)')
 elseif speciesi==2
-    disp('Please refer to <a href = "http://marmoset.brainarchitecture.org/#tab-id-2">marmoset brain hierarchy</a> to find leaf-level region names.')
+    disp('All marmoset brain regions names are available at <a href = "http://marmoset.brainarchitecture.org/#tab-id-2">http://marmoset.brainarchitecture.org/#tab-id-2</a> to (Please copy and paste to view.)')
 end
 disp(['Please enter a region in ',species,' (ID, acronym, or partial name)'])
 regions=input('if multiple regions, use , to separate: ','s');
@@ -29,11 +29,11 @@ if isempty(L)
     return
 end
 %% 4. view brain regions in 3D
-if length(L)==1
+% if length(L)==1
     match_brain_view(species,L);
-else
-    match_brain_view_multi(species,L);
-end
+% else
+%     match_brain_view_multi(species,L);
+% end
 %% 5. view brain regions in the hierarchy
 load('mouseregionlist','mouselist1'); % mouselist
 mouselist=mouselist1;
