@@ -1,10 +1,13 @@
 # brainatlascomparison
-*For any questions, or if you encounter problems configuring the environment to run the app/tool, please feel free to email me: bingxing.huo@gmail.com. I'm always happy to discuss!* <br>
+*For any questions, or if you encounter problems configuring the environment to run the app/tool, please email: bingxing.huo@gmail.com.* <br>
 
 This repository (https://github.com/bingxinghuo/brainatlascomparison/) contains the Matlab tool for the paper <a href="https://doi.org/10.1101/2024.05.06.592808">"Establishing neuroanatomical correspondences across mouse and marmoset brain structures."</a> (Mezias *et al*. bioRxiv)
 There are two versions of the tool:
-1. A standalone Matlab App for users without Matlab license. (*Installing Matlab Runtime is necessary, though.*)
-2. A command line tool within the Matlab interface for Matlab users to maximize accessibility of the code.
+1. <b>A standalone Matlab App</b> for users without Matlab license. (*Installing Matlab Runtime is necessary, though.*)
+2. <b>A command line tool</b> within the Matlab interface for Matlab users to maximize accessibility of the code.
+
+*<b>Compatibility warning:</b> The tool was developed in Matlab R2022a on macOS Monterey, and tested in Matlab R2023a, R2023b, R2024a, on macOS Monterey, Ventura, and Sonoma. The standalone Matlab App <b>must be</b> run with the compatible MatLab Runtime (see below). For any other compatibility issues with newer versions of Matlab, macOS, and other platforms including Windows and Linux environments, please refer to the <a href="https://www.mathworks.com/support/requirements/previous-releases.html">System Requirements</a> information provided by MathWorks. </br>
+(We thank the Anonymous Reviewer for contributing to the compatibility testing.) </br>*
 #
 # 1. Matlab App for visualizing atlas hierarchy and homologous correspondences in marmoset and mouse brains
 The tool provides a graphical interface to visualize the corresponding brain regions in mouse and marmoset, and their respective positions in the atlas hierarchy. 
