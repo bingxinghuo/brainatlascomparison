@@ -1,4 +1,4 @@
-# brainatlascomparison
+# Mouse-Marmoset Brain Atlas Comparison Tool
 *For any questions, or if you encounter problems configuring the environment to run the app/tool, please email: bingxing.huo@gmail.com.* <br>
 
 This repository (https://github.com/bingxinghuo/brainatlascomparison/) contains the Matlab tool for the paper <a href="https://doi.org/10.1101/2024.05.06.592808">"Establishing neuroanatomical correspondences across mouse and marmoset brain structures."</a> (Mezias *et al*. bioRxiv)
